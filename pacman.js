@@ -84,15 +84,24 @@ function eatDot() {
   console.log('\nChomp!');
   score += 10;
 }
-//
-// function eatGhosts() {
-//   ghosts.forEach(function()) {
-//     if (ghosts.edible = false)
-//   }return lives - 1 {
-//     else
-//   }
-//   }
-// }
+
+function eatGhost(ghostNumber) {
+  var ghost = null
+  for (var i = 0; i < ghosts.length; i++) {
+    arrayGhost = ghosts[i]
+    if (arrayGhost.menu_option == ghostNumber) {
+      ghost = arrayGhost;
+      break;
+    }
+  }
+  if (ghost.edible === false) {
+    lives--;
+    console.log('\nPacman has been eaten by ' + ghost.colour + 'ghost ' + ghost.name + '.');
+  }else if (ghost.edible === true) {
+    console.log('');
+    return lives;
+  }
+}
 
 
 // Process Player's Input
@@ -106,16 +115,16 @@ function processInput(key) {
       eatDot();
       break;
     case '1':
-      eatInky(1);
+      eatGhost(1);
       break
     case '2':
-      eatBlinky(2);
+      eatGhost(2)
       break
     case '3':
-      eatPinky(3);
+      eatGhost(3);
       break
     case '4':
-      eatClyde(4);
+      eatGhost(4);
       break
     default:
       console.log('\nInvalid Command!');
@@ -140,7 +149,7 @@ drawScreen();
 stdin.on('data', function(key) {
   process.stdout.write(key);
   processInput(key);
-  setTimeout(drawScreen, 300); // The command prompt will flash a message for 300 milliseoncds before it re-draws the screen. You can adjust the 300 number to increase this.
+  setTimeout(drawScreen, 1000); // The command prompt will flash a message for 300 milliseoncds before it re-draws the screen. You can adjust the 300 number to increase this.
 });
 
 // Player Quits
