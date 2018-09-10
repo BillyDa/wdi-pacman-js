@@ -1,6 +1,7 @@
 // Setup initial game stats
 var score = 0;
 var lives = 2;
+var powerPellets = 4;
 
 
 // Define your ghosts here
@@ -39,7 +40,7 @@ var clyde = {
 
 // replace this comment with your four ghosts setup as objects
 
-var ghosts = [inky, blinky, pinky, clyde]
+var ghosts = [inky, blinky, pinky, clyde];
 
 // Draw the screen functionality
 function drawScreen() {
@@ -57,6 +58,10 @@ function clearScreen() {
 
 function displayStats() {
   console.log('Score: ' + score + '     Lives: ' + lives);
+}
+
+function displayPowerPellets () {
+  console.log('\nPower-Pellets: ' + powerPellets);
 }
 
 function displayMenu() {
@@ -78,6 +83,14 @@ function displayPrompt() {
   process.stdout.write('\nWaka Waka :v '); // :v is the Pac-Man emoji.
 }
 
+function eatPowerPellet() {
+  score += 50;
+  for (var i = 0; i < ghosts.length; i++) {
+    ghosts[i].edible = true;
+  }
+  powerPellets -= 1;
+}
+
 
 // Menu Options
 function eatDot() {
@@ -96,10 +109,16 @@ function eatGhost(ghostNumber) {
   }
   if (ghost.edible === false) {
     lives--;
-    console.log('\nPacman has been eaten by ' + ghost.colour + 'ghost ' + ghost.name + '.');
+    console.log('\nPacman has been eaten by ' + ghost.colour + ' ghost ' + ghost.name + '.');
   }else if (ghost.edible === true) {
     console.log('');
     return lives;
+  }
+}
+
+function gameOver(lives) {
+  if (lives < 0) {
+    process.exit();
   }
 }
 
